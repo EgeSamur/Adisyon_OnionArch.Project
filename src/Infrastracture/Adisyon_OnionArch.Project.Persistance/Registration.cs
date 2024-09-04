@@ -1,6 +1,8 @@
 ﻿using Adisyon_OnionArch.Project.Application.Interfaces.Repositories;
+using Adisyon_OnionArch.Project.Application.Interfaces.UnitOfWorks;
 using Adisyon_OnionArch.Project.Persistance.Context;
 using Adisyon_OnionArch.Project.Persistance.Repositories;
+using Adisyon_OnionArch.Project.Persistance.UnitOfWorks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +19,9 @@ namespace Adisyon_OnionArch.Project.Persistance
             //Repository DPI'ı
             services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
             services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
+           
+            // UnitOFWorks DPI'ı
+            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 
         }
     }

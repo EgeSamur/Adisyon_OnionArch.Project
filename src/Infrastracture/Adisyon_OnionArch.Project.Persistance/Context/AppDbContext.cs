@@ -24,14 +24,14 @@ namespace Adisyon_OnionArch.Project.Persistance.Context
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            // APPSETTİNGSTEN ÇEKEREKN BİR SIKINTI OLUYOR ALTERNATİF ÇÖZÜM OLARAK YAPILDI.
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=EGE_SAMUR\\SQLEXPRESS;Database=adisyonDb;Integrated Security=True;TrustServerCertificate=True;");
-            }
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    // APPSETTİNGSTEN ÇEKEREKN BİR SIKINTI OLUYOR ALTERNATİF ÇÖZÜM OLARAK YAPILDI.
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder.UseSqlServer("Server=EGE_SAMUR\\SQLEXPRESS;Database=adisyonDb;Integrated Security=True;TrustServerCertificate=True;");
+        //    }
+        //}
 
     }
 }
