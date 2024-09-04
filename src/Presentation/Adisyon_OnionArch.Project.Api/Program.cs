@@ -1,3 +1,6 @@
+using Adisyon_OnionArch.Project.Persistance; // Bu satýr, RegisterPersistance metodunu kullanmak için gerekli
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
