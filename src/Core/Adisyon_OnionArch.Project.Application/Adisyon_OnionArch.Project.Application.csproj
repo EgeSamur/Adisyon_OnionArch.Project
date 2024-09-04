@@ -16,4 +16,8 @@
 		<PackageReference Include="SendGrid" Version="9.29.3" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Adisyon_OnionArch.Project.Domain\Adisyon_OnionArch.Project.Domain.csproj" />
+	</ItemGroup>
+
 </Project>
