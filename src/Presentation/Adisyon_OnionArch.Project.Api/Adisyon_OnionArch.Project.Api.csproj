@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Adisyon_OnionArch.Project.Application\Adisyon_OnionArch.Project.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastracture\Adisyon_OnionArch.Project.Infrastracture\Adisyon_OnionArch.Project.Infrastracture.csproj" />
     <ProjectReference Include="..\..\Infrastracture\Adisyon_OnionArch.Project.Persistance\Adisyon_OnionArch.Project.Persistance.csproj" />
   </ItemGroup>
 

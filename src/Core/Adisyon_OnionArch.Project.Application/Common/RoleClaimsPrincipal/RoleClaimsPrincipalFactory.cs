@@ -14,7 +14,7 @@ namespace Adisyon_OnionArch.Project.Application.Common.RoleClaimsPrincipal
         {
         }
 
-        protected override async Task<ClaimsIdentity> GenerateClaimsAsync(User user)
+        public  async Task<ClaimsIdentity> GenerateClaimsCustomAsync(User user)
         {
             var identity = await base.GenerateClaimsAsync(user);
 
@@ -35,5 +35,7 @@ namespace Adisyon_OnionArch.Project.Application.Common.RoleClaimsPrincipal
 
             return identity;
         }
+
+
     }
 }
