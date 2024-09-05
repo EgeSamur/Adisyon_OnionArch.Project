@@ -1,5 +1,6 @@
 ﻿using Adisyon_OnionArch.Project.Application.CrossCuttingConcerns.Logging.LogFormats;
 using Adisyon_OnionArch.Project.Application.Interfaces.Logger;
+using Adisyon_OnionArch.Project.Application.Interfaces.UnitOfWorks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using SendGrid.Helpers.Errors.Model;
@@ -13,19 +14,25 @@ namespace Adisyon_OnionArch.Project.Application.CrossCuttingConcerns.Exceptions
     public class ExceptionMiddleware : IMiddleware
     {
         private readonly ILoggerCustom _loggerService;
+        private readonly IUnitOfWork _unitOfWork;
+
+     
+
         private readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
         {
             Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
         };
 
-        public ExceptionMiddleware(ILoggerCustom loggerService)
+        public ExceptionMiddleware(ILoggerCustom loggerService, IUnitOfWork unitOfWork)
         {
             _loggerService = loggerService;
+            _unitOfWork = unitOfWork;
 
             // JsonSerializerOptions yapılandırması
             _jsonSerializerOptions = new JsonSerializerOptions
             {
-                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                WriteIndented = true // Logları daha okunabilir hale getirir
             };
         }
 
@@ -54,8 +61,8 @@ namespace Adisyon_OnionArch.Project.Application.CrossCuttingConcerns.Exceptions
                 TraceId = httpContext.TraceIdentifier,
                 LogType = "Error",
                 Path = httpContext.Request.Path,
-                Query = httpContext.Request.Query,
-                Header = httpContext.Request.Headers,
+                Query = httpContext.Request.Query.ToString(),
+                Header = httpContext.Request.Headers.ToString(),
                 RequestBody = reqBody,
                 ResponseBody = "",
                 StatusCode = GetStatusCode(ex),
@@ -69,7 +76,8 @@ namespace Adisyon_OnionArch.Project.Application.CrossCuttingConcerns.Exceptions
             };
 
             _loggerService.Error(JsonSerializer.Serialize(logDetail));
-
+            await _unitOfWork.GetWriteRepository<LogDetailWithException>().AddAsync(logDetail);
+            await _unitOfWork.SaveAsync();
 
         }
 
