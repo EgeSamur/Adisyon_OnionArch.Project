@@ -1,6 +1,7 @@
 using Adisyon_OnionArch.Project.Application;
 using Adisyon_OnionArch.Project.Persistance;
 using Adisyon_OnionArch.Project.Infrastracture;
+using Adisyon_OnionArch.Project.CustomMapper;
 using Serilog;
 using Microsoft.OpenApi.Models; // Bu satýr, RegisterPersistance metodunu kullanmak için gerekli
 
@@ -28,6 +29,8 @@ builder.Services.RegisterPersistance(builder.Configuration);
 builder.Services.RegisterApplication();
 // Infrastracture DPI'larý
 builder.Services.RegisterInfrastructure(builder.Configuration);
+// CustomMapper DPI'larý
+builder.Services.RegisterCustomMapper();
 
 
 // Serilog'u yapýlandýr

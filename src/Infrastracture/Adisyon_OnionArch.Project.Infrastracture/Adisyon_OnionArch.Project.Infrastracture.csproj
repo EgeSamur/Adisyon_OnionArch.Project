@@ -18,4 +18,8 @@
     <ProjectReference Include="..\..\Core\Adisyon_OnionArch.Project.Application\Adisyon_OnionArch.Project.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Hashig\" />
+  </ItemGroup>
+
 </Project>
