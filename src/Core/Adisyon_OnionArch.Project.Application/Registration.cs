@@ -28,10 +28,14 @@ namespace Adisyon_OnionArch.Project.Application
             // Logger service DPI'yı
             services.AddSingleton<ILoggerCustom, LoggerCustom>();
 
-
             // Fluent Validation pipeline DPI
             services.AddValidatorsFromAssembly(assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehevior<,>));
+            
+            // HttpContext Accessor DPI
+            services.AddHttpContextAccessor();
+
+
         }
 
         private static IServiceCollection AddRulesFromAssemblyContaining(this IServiceCollection services,
