@@ -27,7 +27,14 @@ namespace Adisyon_OnionArch.Project.Persistance
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
             
             services.AddScoped<IUserClaimsPrincipalFactory<User>, RoleClaimsPrincipalFactory>();
-            services.AddIdentityCore<User>()
+            services.AddIdentityCore<User>(opt =>
+            {
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireDigit = false;
+                opt.SignIn.RequireConfirmedEmail = false;
+            })
                     .AddRoles<Role>()
                     .AddEntityFrameworkStores<AppDbContext>()
                     .AddClaimsPrincipalFactory<RoleClaimsPrincipalFactory>()  // Doğru metot budur
