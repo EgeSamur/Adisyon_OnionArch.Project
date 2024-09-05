@@ -1,11 +1,13 @@
 ﻿using Adisyon_OnionArch.Project.Application.CrossCuttingConcerns.Logging.LogFormats;
 using Adisyon_OnionArch.Project.Domain.Entities;
+using Adisyon_OnionArch.Project.Domain.Entities.Auth;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace Adisyon_OnionArch.Project.Persistance.Context
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User,Role,Guid>
     {
         public AppDbContext() { }
         public AppDbContext(DbContextOptions options) : base(options) { }
