@@ -17,7 +17,7 @@ namespace Adisyon_OnionArch.Project.Application.Common.BaseHandlers
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
-            _userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier).ToString();
+            _userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
         }
     }
 }

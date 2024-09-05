@@ -5,6 +5,7 @@ using Adisyon_OnionArch.Project.Application.Interfaces.Logger;
 using Adisyon_OnionArch.Project.Application.Pipelines;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -34,6 +35,7 @@ namespace Adisyon_OnionArch.Project.Application
             
             // HttpContext Accessor DPI
             services.AddHttpContextAccessor();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
         }
