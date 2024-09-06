@@ -1,6 +1,6 @@
 ﻿using Adisyon_OnionArch.Project.Application.Common.BaseHandlers;
 using Adisyon_OnionArch.Project.Application.Common.Hashing;
-using Adisyon_OnionArch.Project.Application.Features.Auth.Rules;
+using Adisyon_OnionArch.Project.Application.Features.Auth.Command.Rules;
 using Adisyon_OnionArch.Project.Application.Interfaces.AutoMapper;
 using Adisyon_OnionArch.Project.Application.Interfaces.UnitOfWorks;
 using Adisyon_OnionArch.Project.Domain.Entities.Auth;
@@ -37,9 +37,12 @@ namespace Adisyon_OnionArch.Project.Application.Features.Auth.Command.Register
             user.SecurityStamp = Guid.NewGuid().ToString();
 
             // Hashlenmiş şifre ve salt'ı kullanıcıya ekliyoruz
-            user.PasswordHash = passwordHash.ToString();
+            user.PaswordHashByte = passwordHash;
             user.PasswordSalt = passwordSalt;
-
+            if (request.IsAdmin is not null && request.IsAdmin == true)
+            {
+                user.IsAdmin = true;
+            }
             // Kullanıcıyı veritabanına kaydediyoruz
             IdentityResult result = await _userManager.CreateAsync(user);
             if (result.Succeeded)
@@ -65,6 +68,13 @@ namespace Adisyon_OnionArch.Project.Application.Features.Auth.Command.Register
 
                 // Kullanıcıya varsayılan claim ekleme
                 await AddDefaultUserClaimIfNotExists(user);
+
+                // IsAdmin İse
+                if (request.IsAdmin is not null && request.IsAdmin == true)
+                {
+                    await EnsureRoleExistsWithDefaultClaims("admin");
+                    await _userManager.AddToRoleAsync(user, "admin");
+                }
             }
             return await Unit.Task;
         }
@@ -74,7 +84,7 @@ namespace Adisyon_OnionArch.Project.Application.Features.Auth.Command.Register
         {
             // Claim olup olmadığını kontrol ediyoruz
             var existingClaims = await _userManager.GetClaimsAsync(user);
-            var defaultClaimType = "IsDefaultUser";
+            var defaultClaimType = "DefaultUserClaim";
             var defaultClaimValue = "true";
 
             // Eğer zaten bu claim varsa tekrar eklemiyoruz
@@ -90,7 +100,7 @@ namespace Adisyon_OnionArch.Project.Application.Features.Auth.Command.Register
         {
             // Rol için claim olup olmadığını kontrol ediyoruz
             var existingRoleClaims = await _roleManager.GetClaimsAsync(role);
-            var defaultClaimType = "IsDefaultRole";
+            var defaultClaimType = "DefaultUserRoleClaim";
             var defaultClaimValue = "true";
 
             // Eğer claim yoksa ekliyoruz
@@ -101,7 +111,36 @@ namespace Adisyon_OnionArch.Project.Application.Features.Auth.Command.Register
                 await _roleManager.AddClaimAsync(role, defaultRoleClaim);
             }
         }
+
+        private async Task AddDefaultAdminRoleClaimIfNotExists(Role role)
+        {
+            var existingRoleClaims = await _roleManager.GetClaimsAsync(role);
+            var defaultClaimType = role.Name == "admin" ? "IsAdmin" : "DefaultUserRoleClaim";
+            var defaultClaimValue = "true";
+
+            if (!existingRoleClaims.Any(c => c.Type == defaultClaimType && c.Value == defaultClaimValue))
+            {
+                var defaultRoleClaim = new Claim(defaultClaimType, defaultClaimValue);
+                await _roleManager.AddClaimAsync(role, defaultRoleClaim);
+            }
+        }
+
+        private async Task EnsureRoleExistsWithDefaultClaims(string roleName)
+        {
+            if (!await _roleManager.RoleExistsAsync(roleName))
+            {
+                var newRole = new Role
+                {
+                    Id = Guid.NewGuid(),
+                    Name = roleName,
+                    NormalizedName = roleName.ToUpper(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString()
+                };
+                await _roleManager.CreateAsync(newRole);
+                await AddDefaultAdminRoleClaimIfNotExists(newRole);
+            }
+        }
     }
 
-   
+
 }

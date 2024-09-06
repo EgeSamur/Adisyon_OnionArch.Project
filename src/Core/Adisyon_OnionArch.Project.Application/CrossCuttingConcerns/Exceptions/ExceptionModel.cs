@@ -1,4 +1,6 @@
-﻿namespace Adisyon_OnionArch.Project.Application.CrossCuttingConcerns.Exceptions
+﻿using System.Text.Json;
+
+namespace Adisyon_OnionArch.Project.Application.CrossCuttingConcerns.Exceptions
 {
     public class ExceptionModel 
     {
@@ -6,12 +8,11 @@
         public int StatusCode { get; set; }
         public override string ToString()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(Errors);
+            return JsonSerializer.Serialize(this, new JsonSerializerOptions()
+            {
+                PropertyNameCaseInsensitive = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            }); ;
         }
     }
-
-    //public class ErrorStatusCode
-    //{
-    //    public int StatusCode { get; set; }
-    //}
 }

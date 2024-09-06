@@ -30,8 +30,6 @@ namespace Adisyon_OnionArch.Project.Infrastracture.JWT
             var claims = new List<Claim>()
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
             };
 
             // Kullanıcının rol ve rol bazlı claim'lerini eklemek için RoleClaimsPrincipalFactory kullanıyoruz

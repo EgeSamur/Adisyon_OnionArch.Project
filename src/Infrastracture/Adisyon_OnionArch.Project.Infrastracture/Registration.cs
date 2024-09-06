@@ -38,5 +38,6 @@ namespace Adisyon_OnionArch.Project.Infrastracture
                 };
             });
         }
+
     }
 }

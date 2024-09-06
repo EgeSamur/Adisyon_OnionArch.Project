@@ -1,6 +1,6 @@
 ﻿using Adisyon_OnionArch.Project.Application.Common.BussinesRules;
 
-namespace Adisyon_OnionArch.Project.Application.Features.Auth.Rules.Exceptions
+namespace Adisyon_OnionArch.Project.Application.Features.Auth.Command.Rules.Exceptions
 {
     public class UserAlreadyExistException : BaseException
     {
