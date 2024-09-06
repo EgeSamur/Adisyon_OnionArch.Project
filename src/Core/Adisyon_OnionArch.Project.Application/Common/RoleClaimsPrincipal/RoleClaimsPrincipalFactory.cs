@@ -18,21 +18,6 @@ namespace Adisyon_OnionArch.Project.Application.Common.RoleClaimsPrincipal
         {
             var identity = await base.GenerateClaimsAsync(user);
 
-            // Kullanıcının rollerini alıyoruz
-            var roles = await UserManager.GetRolesAsync(user);
-
-            foreach (var roleName in roles)
-            {
-                var role = await RoleManager.FindByNameAsync(roleName);
-
-                if (role != null)
-                {
-                    // Role'ye ekli claim'leri al ve identity'ye ekle
-                    var claims = await RoleManager.GetClaimsAsync(role);
-                    identity.AddClaims(claims);
-                }
-            }
-
             return identity;
         }
 

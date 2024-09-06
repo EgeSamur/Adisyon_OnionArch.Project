@@ -111,13 +111,14 @@ namespace Adisyon_OnionArch.Project.Application.CrossCuttingConcerns.Exceptions
             {
                 exception.Message,
             };
-
-            return httpContext.Response.WriteAsync(new ExceptionModel
+            var y = new ExceptionModel
             {
                 Errors = errors,
                 StatusCode = statusCode
 
-            }.ToString());
+            }.ToString();
+            var x = httpContext.Response.WriteAsync(y);
+            return x ;
         }
 
         private static int GetStatusCode(Exception exception) =>

@@ -1,4 +1,5 @@
-﻿using Adisyon_OnionArch.Project.Application.Features.Auth.Command.Register;
+﻿using Adisyon_OnionArch.Project.Application.Features.Auth.Command.Login;
+using Adisyon_OnionArch.Project.Application.Features.Auth.Command.Register;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,13 @@ namespace Adisyon_OnionArch.Project.Api.Controllers
         {
             await _mediator.Send(request);
             return StatusCode(StatusCodes.Status201Created);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UserLogin(LoginCommandRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return StatusCode(StatusCodes.Status200OK,response);
         }
     }
 }
