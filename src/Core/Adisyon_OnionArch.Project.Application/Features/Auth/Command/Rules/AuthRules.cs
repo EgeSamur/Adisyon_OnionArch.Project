@@ -23,9 +23,18 @@ namespace Adisyon_OnionArch.Project.Application.Features.Auth.Command.Rules
         public Task EnsurePasswordIsCorrect(User user, string password)
         {
             bool isPasswordMatch = HashingHelper.VerifyPasswordHash(password, user.PaswordHashByte, user.PasswordSalt);
-            if(!isPasswordMatch) { throw new PasswordDoesNotMatchException(); }
+            if (!isPasswordMatch) { throw new PasswordDoesNotMatchException(); }
+            return Task.CompletedTask;
+        }
+
+        public Task EnsureUserNotLogOut(DateTime? refreshTokenExpireTime)
+        {
+            if (refreshTokenExpireTime <= DateTime.Now)
+            {
+                throw new UserLogOutException();
+            }
             return Task.CompletedTask;
         }
     }
-    
+
 }
