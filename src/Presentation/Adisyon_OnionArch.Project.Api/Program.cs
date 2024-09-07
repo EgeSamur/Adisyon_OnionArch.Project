@@ -27,7 +27,7 @@ builder.Configuration
 // Persistance DPI'larý
 builder.Services.RegisterPersistance(builder.Configuration);
 // Application DPI'larý
-builder.Services.RegisterApplication();
+builder.Services.RegisterApplication(builder.Configuration);
 // Infrastracture DPI'larý
 builder.Services.RegisterInfrastructure(builder.Configuration);
 // CustomMapper DPI'larý

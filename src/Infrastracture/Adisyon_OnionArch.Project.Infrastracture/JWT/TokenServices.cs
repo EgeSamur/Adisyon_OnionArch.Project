@@ -82,5 +82,28 @@ namespace Adisyon_OnionArch.Project.Infrastracture.JWT
 
             return principal;
         }
+
+        public ClaimsPrincipal? GetPrincipalFromToken(string? token)
+        {
+            TokenValidationParameters validationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenSettings.Secret)),
+                ValidateLifetime = false,
+            };
+
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken securityToken);
+            if (securityToken is not JwtSecurityToken jwtSecurityToken ||
+                !jwtSecurityToken.Header.Alg.
+                Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new SecurityTokenException("Token Bulunamadı.");
+            }
+
+            return principal;
+        }
     }
 }
