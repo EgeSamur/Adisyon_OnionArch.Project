@@ -13,12 +13,15 @@ namespace Adisyon_OnionArch.Project.Infrastracture.Policy
                 {
                     policy.RequireClaim("IsAdmin", "true");
                     policy.RequireClaim("CanChangeTitle", "true");
-                }); 
-                
-                //// "UserOnly" adında bir policy tanımlıyoruz
-                //options.AddPolicy("UserOnly", policy =>
-                //    policy.RequireRole("user"));
-
+                });
+                // "AdminOnly" adında bir policy tanımlıyoruz
+                options.AddPolicy("AdminCanManageCategory", policy =>
+                {
+                    policy.RequireClaim("IsAdmin", "true");
+                    policy.RequireClaim("CreateCategory", "true");
+                    policy.RequireClaim("UpdateCategory", "true");
+                    policy.RequireClaim("DeleteCategory", "true");
+                });
             });
         }
     }
