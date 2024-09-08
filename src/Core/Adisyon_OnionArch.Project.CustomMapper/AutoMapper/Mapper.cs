@@ -57,5 +57,6 @@ namespace Adisyon_OnionArch.Project.CustomMapper.AutoMapper
             });
             _mapperContainer = config.CreateMapper();
         }
+
     }
 }

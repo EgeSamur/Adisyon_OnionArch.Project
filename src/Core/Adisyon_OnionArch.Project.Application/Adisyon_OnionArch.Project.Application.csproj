@@ -25,4 +25,9 @@
 	  <ProjectReference Include="..\Adisyon_OnionArch.Project.Domain\Adisyon_OnionArch.Project.Domain.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Features\Product\Queries\GetAllProducts\" />
+	  <Folder Include="Features\Product\Queries\GetAllProductsByPaging\" />
+	</ItemGroup>
+
 </Project>

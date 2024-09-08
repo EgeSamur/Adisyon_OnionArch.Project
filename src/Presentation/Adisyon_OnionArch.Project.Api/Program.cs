@@ -4,7 +4,8 @@ using Adisyon_OnionArch.Project.Infrastracture;
 using Adisyon_OnionArch.Project.Infrastracture.Policy;
 using Adisyon_OnionArch.Project.CustomMapper;
 using Serilog;
-using Microsoft.OpenApi.Models; // Bu satýr, RegisterPersistance metodunu kullanmak için gerekli
+using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization; // Bu satýr, RegisterPersistance metodunu kullanmak için gerekli
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -72,6 +73,16 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
+
+
+
+
 
 var app = builder.Build();
 
