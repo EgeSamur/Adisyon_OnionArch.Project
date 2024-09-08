@@ -9,6 +9,7 @@ namespace Adisyon_OnionArch.Project.Application.Interfaces.Repositories
         Task<T> UpdateAsync(T entity);
         Task<IList<T>> UpdateRangeAsync(IList<T> entity);
         Task SoftDeleteRangeAsync(IList<EntityBase> entity);
+        Task HardDeleteRangeAsync(IList<T> entity);
         Task SoftDeleteAsync(EntityBase entity);
     }
 }

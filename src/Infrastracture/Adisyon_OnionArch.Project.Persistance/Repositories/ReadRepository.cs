@@ -23,7 +23,7 @@ namespace Adisyon_OnionArch.Project.Persistance.Repositories
                 queryable = queryable.AsNoTracking();
             if (include is not null) queryable = include(queryable);
 
-            return await queryable.FirstOrDefaultAsync();
+            return await queryable.FirstOrDefaultAsync(predicate);
         }
         public async Task<int> CountAsync(Expression<Func<T, bool>>? predicate = null)
         {

@@ -12,11 +12,11 @@ namespace Adisyon_OnionArch.Project.Persistance.Configrations
 
             builder.HasOne(p => p.Product)
                 .WithMany(pc=>pc.ProductCategories)
-                .HasForeignKey(p => p.ProductId).OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(p => p.ProductId).OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(p => p.Category)
                .WithMany(pc => pc.ProductCategories)
-               .HasForeignKey(p => p.CategoryId).OnDelete(DeleteBehavior.Restrict);
+               .HasForeignKey(p => p.CategoryId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

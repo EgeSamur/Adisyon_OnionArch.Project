@@ -19,16 +19,13 @@ namespace Adisyon_OnionArch.Project.Application.Features.Category.Command.Create
 
         public async Task<Unit> Handle(CreateCategoryCommandRequest request, CancellationToken cancellationToken)
         {
-            Domain.Entities.Category? category = await _unitOfWork.GetReadRepository<Domain.Entities.Category>().GetAsync(x => x.Name == request.Name);
+            Domain.Entities.Category? category = await _unitOfWork.GetReadRepository<Domain.Entities.Category>().GetAsync(predicate:x => x.Name.ToLower().Equals(request.Name.ToLower())
+            && x.IsDeleted == false, enableTracking:false);
             await _categoryRules.EnsureCategoryIsNotExist(category);
 
-            Domain.Entities.Category newCategory = new()
-            {
-                Id = Guid.NewGuid(),
-                Name = request.Name,
-                Description = request.Description,
-                //CreatedByUserId = _httpContextAccessor.HttpContext.User.Claims
-            };
+            var newCategory = _mapper.Map<Domain.Entities.Category, CreateCategoryCommandRequest>(request);
+            newCategory.Id = Guid.NewGuid();
+            
             Claim? userIdClaim = _httpContextAccessor
                                 .HttpContext?
                                 .User

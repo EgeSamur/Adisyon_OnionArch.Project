@@ -67,5 +67,10 @@ namespace Adisyon_OnionArch.Project.Persistance.Repositories
 
             return Task.CompletedTask;
         }
+
+        public async Task HardDeleteRangeAsync(IList<T> entity)
+        {
+            await Task.Run(()=> { __table.RemoveRange(entity); });
+        }
     }
 }

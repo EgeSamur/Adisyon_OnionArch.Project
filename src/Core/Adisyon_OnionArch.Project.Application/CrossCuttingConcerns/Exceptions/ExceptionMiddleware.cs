@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Adisyon_OnionArch.Project.Application.CrossCuttingConcerns.Exceptions
 {
@@ -16,7 +17,7 @@ namespace Adisyon_OnionArch.Project.Application.CrossCuttingConcerns.Exceptions
         private readonly ILoggerCustom _loggerService;
         private readonly IUnitOfWork _unitOfWork;
 
-     
+
 
         private readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
         {
@@ -32,7 +33,7 @@ namespace Adisyon_OnionArch.Project.Application.CrossCuttingConcerns.Exceptions
             _jsonSerializerOptions = new JsonSerializerOptions
             {
                 Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-                WriteIndented = true // Logları daha okunabilir hale getirir
+                WriteIndented = true, // Logları daha okunabilir hale getirir,
             };
         }
 
@@ -40,7 +41,7 @@ namespace Adisyon_OnionArch.Project.Application.CrossCuttingConcerns.Exceptions
         {
             try
             {
-                    await next(httpContext);  // Request'i bir sonraki middleware'e gönder
+                await next(httpContext);  // Request'i bir sonraki middleware'e gönder
             }
             catch (Exception ex)
             {
@@ -118,7 +119,7 @@ namespace Adisyon_OnionArch.Project.Application.CrossCuttingConcerns.Exceptions
 
             }.ToString();
             var x = httpContext.Response.WriteAsync(y);
-            return x ;
+            return x;
         }
 
         private static int GetStatusCode(Exception exception) =>
