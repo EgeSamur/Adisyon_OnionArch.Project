@@ -2,9 +2,16 @@
 
 namespace Adisyon_OnionArch.Project.Application.Dtos
 {
-    public class ProductCategoryDtoFor
+    public class ProductCategoryDto
     {
-        public Guid ProductId { get; set; }
-        public Guid CategoryId { get; set; }
+        public CategoryDto Category { get; set; }
     }
+
+
+    //public class CategoryDto
+    //{
+    //    public Guid Id { get; set; }
+    //    public string Name { get; set; }
+    //    public string? Description { get; set; }
+    //}
 }

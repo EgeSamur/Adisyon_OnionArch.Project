@@ -1,5 +1,5 @@
 ﻿using Adisyon_OnionArch.Project.Application.Common.BaseHandlers;
-using Adisyon_OnionArch.Project.Application.Interfaces.AutoMapper;
+using AutoMapper;
 using Adisyon_OnionArch.Project.Application.Interfaces.UnitOfWorks;
 using Adisyon_OnionArch.Project.Domain.Entities.Auth;
 using MediatR;

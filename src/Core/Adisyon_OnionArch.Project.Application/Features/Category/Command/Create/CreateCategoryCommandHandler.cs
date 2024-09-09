@@ -1,6 +1,6 @@
 ﻿using Adisyon_OnionArch.Project.Application.Common.BaseHandlers;
 using Adisyon_OnionArch.Project.Application.Features.Category.Rules;
-using Adisyon_OnionArch.Project.Application.Interfaces.AutoMapper;
+using AutoMapper;
 using Adisyon_OnionArch.Project.Application.Interfaces.UnitOfWorks;
 using Adisyon_OnionArch.Project.Domain.Entities;
 using MediatR;
@@ -19,13 +19,13 @@ namespace Adisyon_OnionArch.Project.Application.Features.Category.Command.Create
 
         public async Task<Unit> Handle(CreateCategoryCommandRequest request, CancellationToken cancellationToken)
         {
-            Domain.Entities.Category? category = await _unitOfWork.GetReadRepository<Domain.Entities.Category>().GetAsync(predicate:x => x.Name.ToLower().Equals(request.Name.ToLower())
-            && x.IsDeleted == false, enableTracking:false);
+            Domain.Entities.Category? category = await _unitOfWork.GetReadRepository<Domain.Entities.Category>().GetAsync(predicate: x => x.Name.ToLower().Equals(request.Name.ToLower())
+            && x.IsDeleted == false, enableTracking: false);
             await _categoryRules.EnsureCategoryIsNotExist(category);
 
-            var newCategory = _mapper.Map<Domain.Entities.Category, CreateCategoryCommandRequest>(request);
+            var newCategory = _mapper.Map<Domain.Entities.Category>(request);
             newCategory.Id = Guid.NewGuid();
-            
+
             Claim? userIdClaim = _httpContextAccessor
                                 .HttpContext?
                                 .User

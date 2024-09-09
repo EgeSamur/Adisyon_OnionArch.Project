@@ -1,5 +1,5 @@
 ﻿using Adisyon_OnionArch.Project.Application.Common.BaseHandlers;
-using Adisyon_OnionArch.Project.Application.Interfaces.AutoMapper;
+using AutoMapper;
 using Adisyon_OnionArch.Project.Application.Interfaces.UnitOfWorks;
 using Adisyon_OnionArch.Project.Domain.Entities;
 using MediatR;
@@ -19,7 +19,7 @@ namespace Adisyon_OnionArch.Project.Application.Features.Category.Queries.GetAll
             IList<GetAllCategoriesWithPagingQueryResponse> response = new List<GetAllCategoriesWithPagingQueryResponse>();
             foreach (var category in categories)
             {
-                var map = _mapper.Map<GetAllCategoriesWithPagingQueryResponse, Domain.Entities.Category>(category);
+                var map = _mapper.Map<GetAllCategoriesWithPagingQueryResponse>(category);
                 response.Add(map);
             }
             return response;

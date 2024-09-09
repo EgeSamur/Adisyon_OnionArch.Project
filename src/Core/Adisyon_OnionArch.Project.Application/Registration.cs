@@ -16,10 +16,11 @@ namespace Adisyon_OnionArch.Project.Application
 {
     public static class Registration
     {
-        public static void RegisterApplication(this IServiceCollection services , IConfiguration configuration)
+        public static void RegisterApplication(this IServiceCollection services, IConfiguration configuration)
         {
             var assembly = Assembly.GetExecutingAssembly();
-
+            //Profiles DPI
+            services.AddAutoMapper(assembly);
             // Features kısmındaki assembly DPI'ı
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));
 
@@ -35,7 +36,7 @@ namespace Adisyon_OnionArch.Project.Application
             // Fluent Validation pipeline DPI
             services.AddValidatorsFromAssembly(assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehevior<,>));
-            
+
             // Redis Cache ve Redis pipeline DPI
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RedisCacheBehevior<,>));
             services.Configure<RedisCacheSettings>(configuration.GetSection("RedisCacheSettings"));
@@ -45,11 +46,12 @@ namespace Adisyon_OnionArch.Project.Application
                 opt.Configuration = configuration["RedisCacheSettings:ConnectionString"];
                 opt.InstanceName = configuration["RedisCacheSettings:InstanceName"];
             });
-            
+
             // HttpContext Accessor DPI
             services.AddHttpContextAccessor();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            
 
         }
 
@@ -64,5 +66,8 @@ namespace Adisyon_OnionArch.Project.Application
             }
             return services;
         }
+
+      
+
     }
 }

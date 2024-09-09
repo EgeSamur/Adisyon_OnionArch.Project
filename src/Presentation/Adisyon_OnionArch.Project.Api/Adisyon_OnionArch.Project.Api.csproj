@@ -8,6 +8,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -17,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Adisyon_OnionArch.Project.Application\Adisyon_OnionArch.Project.Application.csproj" />
-    <ProjectReference Include="..\..\Core\Adisyon_OnionArch.Project.CustomMapper\Adisyon_OnionArch.Project.CustomMapper.csproj" />
     <ProjectReference Include="..\..\Infrastracture\Adisyon_OnionArch.Project.Infrastracture\Adisyon_OnionArch.Project.Infrastracture.csproj" />
     <ProjectReference Include="..\..\Infrastracture\Adisyon_OnionArch.Project.Persistance\Adisyon_OnionArch.Project.Persistance.csproj" />
   </ItemGroup>

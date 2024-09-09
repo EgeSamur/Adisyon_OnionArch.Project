@@ -2,10 +2,10 @@ using Adisyon_OnionArch.Project.Application;
 using Adisyon_OnionArch.Project.Persistance;
 using Adisyon_OnionArch.Project.Infrastracture;
 using Adisyon_OnionArch.Project.Infrastracture.Policy;
-using Adisyon_OnionArch.Project.CustomMapper;
 using Serilog;
 using Microsoft.OpenApi.Models;
-using System.Text.Json.Serialization; // Bu satýr, RegisterPersistance metodunu kullanmak için gerekli
+using System.Text.Json.Serialization;
+using System.Reflection; // Bu satýr, RegisterPersistance metodunu kullanmak için gerekli
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,11 +31,8 @@ builder.Services.RegisterPersistance(builder.Configuration);
 builder.Services.RegisterApplication(builder.Configuration);
 // Infrastracture DPI'larý
 builder.Services.RegisterInfrastructure(builder.Configuration);
-// CustomMapper DPI'larý
-builder.Services.RegisterCustomMapper();
 // Auth için policylerin DPI'ý
 builder.Services.ConfigurePoliciesForRoleClaims();
-
 
 // Serilog'u yapýlandýr
 Log.Logger = new LoggerConfiguration()
