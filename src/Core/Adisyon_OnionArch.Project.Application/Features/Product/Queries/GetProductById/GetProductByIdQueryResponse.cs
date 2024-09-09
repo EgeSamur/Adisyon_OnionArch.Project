@@ -1,4 +1,5 @@
-﻿using Adisyon_OnionArch.Project.Domain.Entities;
+﻿using Adisyon_OnionArch.Project.Application.Dtos;
+using Adisyon_OnionArch.Project.Domain.Entities;
 using Adisyon_OnionArch.Project.Domain.Enums;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,6 @@ namespace Adisyon_OnionArch.Project.Application.Features.Product.Queries.GetProd
         public decimal Price { get; set; }
         public bool? IsBestSeller { get; set; }
         public BestSellerRank? BestSellerRank { get; set; }
-        public ICollection<ProductCategory>? ProductCategories { get; set; }
+        public ICollection<CategoryDto>? Categories { get; set; }
     }
 }

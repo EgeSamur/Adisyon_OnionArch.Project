@@ -1,11 +1,7 @@
 ﻿using Adisyon_OnionArch.Project.Application.Common.BaseHandlers;
-using Adisyon_OnionArch.Project.Application.Dtos;
-using Adisyon_OnionArch.Project.Application.Features.Category.Queries.GetCategoryById;
-using Adisyon_OnionArch.Project.Application.Features.Category.Rules;
 using Adisyon_OnionArch.Project.Application.Features.Product.Rules;
-using Adisyon_OnionArch.Project.Application.Interfaces.AutoMapper;
 using Adisyon_OnionArch.Project.Application.Interfaces.UnitOfWorks;
-using Adisyon_OnionArch.Project.Domain.Entities;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -22,9 +18,10 @@ namespace Adisyon_OnionArch.Project.Application.Features.Product.Queries.GetProd
 
         public async Task<GetProductByIdQueryResponse> Handle(GetProductByIdQueryRequest request, CancellationToken cancellationToken)
         {
-            Domain.Entities.Product? product = await _unitOfWork.GetReadRepository<Domain.Entities.Product>().GetAsync(x => x.Id == request.Id, include: y => y.Include(z => z.ProductCategories.Where(x => x.ProductId == request.Id)));
+            Domain.Entities.Product? product = await _unitOfWork.GetReadRepository<Domain.Entities.Product>().GetAsync(x => x.Id == request.Id, include:
+                y => y.Include(z => z.ProductCategories.Where(x => x.ProductId == request.Id)).ThenInclude(x=> x.Category));
             await _productRules.EnsureProducExists(product);
-            var productResponse = _mapper.Map<GetProductByIdQueryResponse, Domain.Entities.Product?>(product);
+            var productResponse = _mapper.Map<GetProductByIdQueryResponse>(product);
 
             return productResponse;
 

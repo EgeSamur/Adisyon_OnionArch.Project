@@ -1,5 +1,5 @@
-﻿using Adisyon_OnionArch.Project.Application.Interfaces.AutoMapper;
-using Adisyon_OnionArch.Project.Application.Interfaces.UnitOfWorks;
+﻿using Adisyon_OnionArch.Project.Application.Interfaces.UnitOfWorks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 

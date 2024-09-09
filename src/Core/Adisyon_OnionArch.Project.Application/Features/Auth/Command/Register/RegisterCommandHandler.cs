@@ -1,7 +1,7 @@
 ﻿using Adisyon_OnionArch.Project.Application.Common.BaseHandlers;
 using Adisyon_OnionArch.Project.Application.Common.Hashing;
 using Adisyon_OnionArch.Project.Application.Features.Auth.Command.Rules;
-using Adisyon_OnionArch.Project.Application.Interfaces.AutoMapper;
+using AutoMapper;
 using Adisyon_OnionArch.Project.Application.Interfaces.UnitOfWorks;
 using Adisyon_OnionArch.Project.Domain.Entities.Auth;
 using MediatR;
@@ -32,7 +32,7 @@ namespace Adisyon_OnionArch.Project.Application.Features.Auth.Command.Register
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(request.Password, out passwordHash, out passwordSalt);
 
-            User user = _mapper.Map<User, RegisterCommandRequest>(request);
+            User user = _mapper.Map<User>(request);
             user.UserName = request.Email;
             user.SecurityStamp = Guid.NewGuid().ToString();
 

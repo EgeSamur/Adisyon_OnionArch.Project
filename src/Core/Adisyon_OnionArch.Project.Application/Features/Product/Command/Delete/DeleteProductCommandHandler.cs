@@ -1,6 +1,6 @@
 ﻿using Adisyon_OnionArch.Project.Application.Common.BaseHandlers;
 using Adisyon_OnionArch.Project.Application.Features.Product.Rules;
-using Adisyon_OnionArch.Project.Application.Interfaces.AutoMapper;
+using AutoMapper;
 using Adisyon_OnionArch.Project.Application.Interfaces.UnitOfWorks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
