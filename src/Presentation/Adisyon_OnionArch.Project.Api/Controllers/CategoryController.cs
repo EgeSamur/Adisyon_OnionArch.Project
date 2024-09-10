@@ -1,5 +1,4 @@
-﻿using Adisyon_OnionArch.Project.Application.Features.Auth.Command.Register;
-using Adisyon_OnionArch.Project.Application.Features.Category.Command.Create;
+﻿using Adisyon_OnionArch.Project.Application.Features.Category.Command.Create;
 using Adisyon_OnionArch.Project.Application.Features.Category.Command.Delete;
 using Adisyon_OnionArch.Project.Application.Features.Category.Command.Update;
 using Adisyon_OnionArch.Project.Application.Features.Category.Queries.GetAllCategoriesWithPaging;

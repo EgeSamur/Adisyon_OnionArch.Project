@@ -10,7 +10,7 @@ namespace Adisyon_OnionArch.Project.Application.Common.BaseHandlers
         public readonly IMapper _mapper;
         public readonly IUnitOfWork _unitOfWork;
         public readonly IHttpContextAccessor _httpContextAccessor;
-        public readonly string _userId;
+        public string? _userId;
 
         public BaseHandler(IMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
         {

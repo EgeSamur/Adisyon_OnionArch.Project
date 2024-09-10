@@ -28,10 +28,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Features\Tables\Commands\" />
-	  <Folder Include="Features\Tables\Rules\" />
-	  <Folder Include="Features\Tables\Profiles\" />
-	  <Folder Include="Features\Tables\Queries\" />
+	  <Folder Include="QrCodePngs\" />
 	</ItemGroup>
 
 </Project>

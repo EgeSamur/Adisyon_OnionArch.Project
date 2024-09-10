@@ -5,10 +5,10 @@ namespace Adisyon_OnionArch.Project.Domain.Entities
     public class Basket : EntityBase
     {
         public Guid TableId { get; set; }
-        public bool IsPaid { get; set; } = false;
+        public bool IsPaid { get; set; } = true;
 
         // A bucket can have multiple items
-        public ICollection<BasketItem> BucketItems { get; set; }
+        public ICollection<BasketItem>? BucketItems { get; set; }
 
         // Navigation property
         public Table Table { get; set; }
