@@ -2,6 +2,7 @@
 using Adisyon_OnionArch.Project.Application.Features.Product.Command.Create;
 using Adisyon_OnionArch.Project.Application.Features.Product.Command.Delete;
 using Adisyon_OnionArch.Project.Application.Features.Product.Command.Update;
+using Adisyon_OnionArch.Project.Application.Features.Product.Queries.GetAllProductsByPaging;
 using Adisyon_OnionArch.Project.Application.Features.Product.Queries.GetProductById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -51,6 +52,15 @@ namespace Adisyon_OnionArch.Project.Api.Controllers
         //[Authorize(Roles = "admin")] // policy belirlememiz gerekiyor category oluşturma claimi var ise yapablicek
         //[Authorize(Roles = "admin", Policy = "AdminCanManageCategory")] // policy belirlememiz gerekiyor category oluşturma claimi var ise yapablicek
         public async Task<IActionResult> GetProductById([FromQuery] GetProductByIdQueryRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return StatusCode(StatusCodes.Status200OK, response);
+        }
+
+        [HttpGet]
+        //[Authorize(Roles = "admin")] // policy belirlememiz gerekiyor category oluşturma claimi var ise yapablicek
+        //[Authorize(Roles = "admin", Policy = "AdminCanManageCategory")] // policy belirlememiz gerekiyor category oluşturma claimi var ise yapablicek
+        public async Task<IActionResult> GetAllProductBypaging([FromQuery] GetAllProductsByPagingQueryRequest request)
         {
             var response = await _mediator.Send(request);
             return StatusCode(StatusCodes.Status200OK, response);

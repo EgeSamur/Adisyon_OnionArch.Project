@@ -18,29 +18,29 @@ namespace Adisyon_OnionArch.Project.Application.Features.Product.Command.Update
 
         public async Task<Unit> Handle(UpdateProductCommandRequest request, CancellationToken cancellationToken)
         {
-            //Domain.Entities.Product? product = await _unitOfWork.GetReadRepository<Domain.Entities.Product>().GetAsync(x => x.Id == request.Id);
-            //await _productRules.EnsureProducExists(product);
-            //var mappedProduct = _mapper.Map<Domain.Entities.Product, UpdateProductCommandRequest>(request);
-            //var productCategories = await _unitOfWork.GetReadRepository<Domain.Entities.ProductCategory>().GetAllAsync(x => x.ProductId == product.Id);
-            //await _unitOfWork.GetWriteRepository<Domain.Entities.ProductCategory>().HardDeleteRangeAsync(productCategories); // burda Cascede değilse hata verebilir bakacağız.
+            Domain.Entities.Product? product = await _unitOfWork.GetReadRepository<Domain.Entities.Product>().GetAsync(x => x.Id == request.Id);
+            await _productRules.EnsureProducExists(product);
+            var mappedProduct = _mapper.Map<Domain.Entities.Product>(request);
+            var productCategories = await _unitOfWork.GetReadRepository<Domain.Entities.ProductCategory>().GetAllAsync(x => x.ProductId == product.Id);
+            await _unitOfWork.GetWriteRepository<Domain.Entities.ProductCategory>().HardDeleteRangeAsync(productCategories); // burda Cascede değilse hata verebilir bakacağız.
 
-            //var userIdClaim = _httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.NameIdentifier);
-            //var userId = userIdClaim != null ? Guid.Parse(userIdClaim.Value) : Guid.Empty;
+            var userIdClaim = _httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+            var userId = userIdClaim != null ? Guid.Parse(userIdClaim.Value) : Guid.Empty;
 
-            //foreach (var categoryIds in request.CategoryIds) 
-            //{
-            //    await _unitOfWork.GetWriteRepository<Domain.Entities.ProductCategory>().AddAsync(new()
-            //    {
-            //        Id = Guid.NewGuid(),
-            //        CategoryId = categoryIds,
-            //        ProductId = product.Id,
-            //        CreatedByUserId = userId,
-            //        UpdatedByUserId = userId,
-            //        UpdatedDate = DateTime.UtcNow,
-            //    });
-            //}
-            //await _unitOfWork.GetWriteRepository<Domain.Entities.Product>().UpdateAsync(product);
-            //await _unitOfWork.SaveAsync();
+            foreach (var categoryIds in request.CategoryIds)
+            {
+                await _unitOfWork.GetWriteRepository<Domain.Entities.ProductCategory>().AddAsync(new()
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryId = categoryIds,
+                    ProductId = product.Id,
+                    CreatedByUserId = userId,
+                    UpdatedByUserId = userId,
+                    UpdatedDate = DateTime.UtcNow,
+                });
+            }
+            await _unitOfWork.GetWriteRepository<Domain.Entities.Product>().UpdateAsync(product);
+            await _unitOfWork.SaveAsync();
             return Unit.Value;
         }
     }

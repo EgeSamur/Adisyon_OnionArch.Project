@@ -15,6 +15,7 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
 		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.8" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="QRCoder" Version="1.6.0" />
 		<PackageReference Include="SendGrid" Version="9.29.3" />
 		<PackageReference Include="Serilog.AspNetCore" Version="8.0.2" />
 		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
@@ -27,8 +28,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Features\Product\Queries\GetAllProducts\" />
-	  <Folder Include="Features\Product\Queries\GetAllProductsByPaging\" />
+	  <Folder Include="Features\Tables\Commands\" />
+	  <Folder Include="Features\Tables\Rules\" />
+	  <Folder Include="Features\Tables\Profiles\" />
+	  <Folder Include="Features\Tables\Queries\" />
 	</ItemGroup>
 
 </Project>
